@@ -5,7 +5,7 @@
       <button class="btn btn-sm float-right"
               v-bind:class="btnStyle"
               v-on:click="changeNextStep">
-              {{boardStatus}}
+        {{boardStatus}}
       </button>
       <p class="card-text float-left">{{boardContent}}</p>
     </div>
