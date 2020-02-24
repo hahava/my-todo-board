@@ -30,6 +30,7 @@
     import BoardItem from "./BoardItem";
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
+    import {EventBus} from "../eventbus/ClickEvent";
 
     export default {
         name: "BoardContainer",
@@ -37,6 +38,10 @@
             BoardItem
         }
     }
+
+    EventBus.$on("click", boardStatus => {
+        console.log(boardStatus);
+    })
 </script>
 
 <style scoped>

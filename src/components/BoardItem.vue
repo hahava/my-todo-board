@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title float-left">{{boardTitle}}</h5>
+      <h5 class="card-title float-left">{{currentTitle}}</h5>
       <button class="btn btn-sm float-right"
               v-bind:class="btnStyle"
               v-on:click="changeNextStep">
-        {{boardStatus}}
+        {{currentStatus}}
       </button>
-      <p class="card-text float-left">{{boardContent}}</p>
+      <p class="card-text float-left">{{currentContent}}</p>
     </div>
   </div>
 </template>
@@ -15,11 +15,16 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
+    import {EventBus} from "../eventbus/ClickEvent";
 
     export default {
         name: "BoardItem",
         data: function () {
-            return {}
+            return {
+                currentStatus: this.boardStatus,
+                currentTitle: this.boardTitle,
+                currentContent: this.boardContent
+            }
         }, methods: {
             changeNextStep() {
                 if (this.boardStatus === "TODO") {
@@ -27,6 +32,7 @@
                 } else if (this.boardStatus === "DOING") {
                     this.boardStatus = "DONE"
                 }
+                EventBus.$emit("click", this.currentStatus);
             }
         }, computed: {
             btnStyle() {
