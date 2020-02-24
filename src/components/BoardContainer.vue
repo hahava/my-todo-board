@@ -4,24 +4,26 @@
     <br>
     <br>
     <div class="row">
-      <div class="col-4">
+      <BoardItemContainer type="todo">
         <BoardItem board-status="TODO"
                    board-title="hello TODO board"
                    board-content="hello board content"/>
         <BoardItem board-status="TODO"
                    board-title="hello TODO board"
                    board-content="hello board content"/>
-      </div>
-      <div class="col-4">
+      </BoardItemContainer>
+
+      <BoardItemContainer type="doing">
         <BoardItem board-status="DOING"
                    board-title="hello DONE board"
                    board-content="hello board content"/>
-      </div>
-      <div class="col-4">
+      </BoardItemContainer>
+
+      <BoardItemContainer type="done">
         <BoardItem board-status="DONE"
-                   board-title="hello  DOINGboard"
+                   board-title="hello  DOING board"
                    board-content="hello board content"/>
-      </div>
+      </BoardItemContainer>
     </div>
   </div>
 </template>
@@ -31,10 +33,12 @@
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
     import {EventBus} from "../eventbus/ClickEvent";
+    import BoardItemContainer from "./BoardItemContainer";
 
     export default {
         name: "BoardContainer",
         components: {
+            BoardItemContainer,
             BoardItem
         }
     }
