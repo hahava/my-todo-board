@@ -4,26 +4,32 @@
     <br>
     <br>
     <div class="row">
-      <BoardItemContainer type="todo">
-        <BoardItem board-status="TODO"
-                   board-title="hello TODO board"
-                   board-content="hello board content"/>
-        <BoardItem board-status="TODO"
-                   board-title="hello TODO board"
-                   board-content="hello board content"/>
-      </BoardItemContainer>
+      <TodoContainer type="todo">
+        <BoardItem v-for="(todo, x) in todos" :key="x"
+                   :id=todo.id
+                   :board-status=todo.status
+                   :board-title=todo.title
+                   :board-content=todo.content
+        />
+      </TodoContainer>
 
-      <BoardItemContainer type="doing">
-        <BoardItem board-status="DOING"
-                   board-title="hello DONE board"
-                   board-content="hello board content"/>
-      </BoardItemContainer>
+      <DoingContainer type="doing">
+        <BoardItem v-for="(doing, x) in doings" :key="x"
+                   :id=doing.id
+                   :board-status=doing.status
+                   :board-title=doing.title
+                   :board-content=doing.content
+        />
+      </DoingContainer>
 
-      <BoardItemContainer type="done">
-        <BoardItem board-status="DONE"
-                   board-title="hello  DOING board"
-                   board-content="hello board content"/>
-      </BoardItemContainer>
+      <DoneContainer type="done">
+        <BoardItem v-for="(done, x) in dones" :key="x"
+                   :id=done.id
+                   :board-status=done.status
+                   :board-title=done.title
+                   :board-content=done.content
+        />
+      </DoneContainer>
     </div>
   </div>
 </template>
@@ -35,17 +41,54 @@
     import {EventBus} from "../eventbus/ClickEvent";
     import BoardItemContainer from "./BoardItemContainer";
 
+
+    let TodoContainer = BoardItemContainer
+    let DoingContainer = BoardItemContainer
+    let DoneContainer = BoardItemContainer
+
+
     export default {
         name: "BoardContainer",
         components: {
-            BoardItemContainer,
-            BoardItem
+            BoardItem, TodoContainer, DoingContainer, DoneContainer
+        },
+        methods: {
+            changeNextStep(item) {
+                this.todos = this.todos.filter(elem => elem.id != item.currentId)
+                this.doings.push({
+                        id: item.currentId,
+                        status: item.currentStatus,
+                        title: item.currentTitle,
+                        content: item.currentContent
+                    }
+                );
+            }
+        },
+        data() {
+            return {
+                todos: [
+                    {id: '1', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'},
+                    {id: '2', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'},
+                    {id: '3', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'}
+                ],
+                doings: [
+                    {id: '1', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
+                    {id: '2', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
+                    {id: '3', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'}
+                ],
+                dones: [
+                    {id: '1', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                    {id: '2', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                    {id: '3', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                ]
+            }
+        }, created() {
+            EventBus.$on("click", board => {
+                this.changeNextStep(board)
+            })
         }
     }
 
-    EventBus.$on("click", boardStatus => {
-        console.log(boardStatus);
-    })
 </script>
 
 <style scoped>

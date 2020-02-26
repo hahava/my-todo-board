@@ -22,6 +22,7 @@
         name: "BoardItem",
         data: function () {
             return {
+                currentId: this.id,
                 currentStatus: this.boardStatus,
                 currentTitle: this.boardTitle,
                 currentContent: this.boardContent
@@ -33,7 +34,12 @@
                 } else if (this.currentStatus === STATUS_TYPE.DOING) {
                     this.currentStatus = STATUS_TYPE.DONE
                 }
-                EventBus.$emit("click", this.currentStatus);
+                EventBus.$emit("click", {
+                    currentId: this.id,
+                    currentStatus: this.boardStatus,
+                    currentTitle: this.boardTitle,
+                    currentContent: this.boardContent
+                });
             }
         }, computed: {
             btnStyle() {
@@ -46,7 +52,7 @@
                 }
             }
         },
-        props: ["boardTitle", "boardContent", "boardStatus"]
+        props: ["id", "boardTitle", "boardContent", "boardStatus"]
     }
 </script>
 
