@@ -25,15 +25,10 @@
                 currentId: this.id,
                 currentStatus: this.boardStatus,
                 currentTitle: this.boardTitle,
-                currentContent: this.boardContent
+                currentContent: this.boardContent,
             }
         }, methods: {
             changeNextStep() {
-                if (this.currentStatus === STATUS_TYPE.TODO) {
-                    this.currentStatus = STATUS_TYPE.DOING
-                } else if (this.currentStatus === STATUS_TYPE.DOING) {
-                    this.currentStatus = STATUS_TYPE.DONE
-                }
                 EventBus.$emit("click", {
                     currentId: this.id,
                     currentStatus: this.boardStatus,
@@ -48,7 +43,7 @@
                 } else if (this.currentStatus === STATUS_TYPE.DOING) {
                     return "btn-primary"
                 } else {
-                    return "btn-success"
+                    return "btn-success disabled"
                 }
             }
         },
