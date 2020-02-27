@@ -31,6 +31,12 @@
         />
       </DoneContainer>
     </div>
+    <hr/>
+    <div class="row">
+      <div class="col-12">
+        <BoardInputContainer/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -41,6 +47,7 @@
     import {EventBus} from "../eventbus/ClickEvent";
     import BoardItemContainer from "./BoardItemContainer";
     import {STATUS_TYPE} from "../main";
+    import BoardInputContainer from "./BoardInputContainer";
 
 
     let TodoContainer = BoardItemContainer
@@ -51,6 +58,7 @@
     export default {
         name: "BoardContainer",
         components: {
+            BoardInputContainer,
             BoardItem, TodoContainer, DoingContainer, DoneContainer
         },
         methods: {
@@ -74,6 +82,17 @@
                     });
                     this.doings = this.doings.filter(elem => elem.id !== item.currentId)
                 }
+            },
+            getLastIndex() {
+                return this.todos.length + this.doings.length + this.dones.length + 1;
+            },
+            addTodo(item) {
+                this.todos.push({
+                    id: this.getLastIndex(),
+                    status: STATUS_TYPE.TODO,
+                    title: item.title,
+                    content: item.content
+                })
             }
         },
         data() {
@@ -92,12 +111,16 @@
                     {id: '7', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
                     {id: '8', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
                     {id: '9', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
-                ]
+                ],
+                lastIndex: 0
             }
         }, created() {
             EventBus.$on("click", board => {
                 this.changeNextStep(board)
-            })
+            });
+            EventBus.$on("addTodo", item => {
+                this.addTodo(item);
+            });
         }
     }
 
