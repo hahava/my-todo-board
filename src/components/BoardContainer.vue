@@ -40,6 +40,7 @@
     import 'bootstrap-vue/dist/bootstrap-vue.css'
     import {EventBus} from "../eventbus/ClickEvent";
     import BoardItemContainer from "./BoardItemContainer";
+    import {STATUS_TYPE} from "../main";
 
 
     let TodoContainer = BoardItemContainer
@@ -54,14 +55,25 @@
         },
         methods: {
             changeNextStep(item) {
-                this.todos = this.todos.filter(elem => elem.id != item.currentId)
-                this.doings.push({
+
+                if (item.currentStatus === STATUS_TYPE.TODO) {
+                    this.doings.push({
+                            id: item.currentId,
+                            status: STATUS_TYPE.DOING,
+                            title: item.currentTitle,
+                            content: item.currentContent
+                        }
+                    );
+                    this.todos = this.todos.filter(elem => elem.id !== item.currentId)
+                } else if (item.currentStatus === STATUS_TYPE.DOING) {
+                    this.dones.push({
                         id: item.currentId,
-                        status: item.currentStatus,
+                        status: STATUS_TYPE.DONE,
                         title: item.currentTitle,
                         content: item.currentContent
-                    }
-                );
+                    });
+                    this.doings = this.doings.filter(elem => elem.id !== item.currentId)
+                }
             }
         },
         data() {
@@ -72,14 +84,14 @@
                     {id: '3', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'}
                 ],
                 doings: [
-                    {id: '1', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
-                    {id: '2', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
-                    {id: '3', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'}
+                    {id: '4', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
+                    {id: '5', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
+                    {id: '6', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'}
                 ],
                 dones: [
-                    {id: '1', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
-                    {id: '2', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
-                    {id: '3', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                    {id: '7', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                    {id: '8', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                    {id: '9', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
                 ]
             }
         }, created() {
