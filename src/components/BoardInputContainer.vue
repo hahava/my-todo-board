@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import {EventBus} from "../eventbus/ClickEvent";
+    import {EventBus} from "../main";
 
     export default {
         name: "BoardInputContainer",

@@ -44,7 +44,7 @@
     import BoardItem from "./BoardItem";
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EventBus} from "../eventbus/ClickEvent";
+    import {EventBus} from "../main";
     import BoardItemContainer from "./BoardItemContainer";
     import {STATUS_TYPE} from "../main";
     import BoardInputContainer from "./BoardInputContainer";

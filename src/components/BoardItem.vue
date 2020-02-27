@@ -15,7 +15,7 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EventBus} from "../eventbus/ClickEvent";
+    import {EventBus} from "../main";
     import {STATUS_TYPE} from "../main";
 
     export default {

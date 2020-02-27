@@ -12,6 +12,8 @@ export const STATUS_TYPE = {
   DONE: "DONE"
 }
 
+export const EventBus = new Vue();
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')
