@@ -12,6 +12,11 @@ export const STATUS_TYPE = {
   DONE: "DONE"
 }
 
+export const EVENT_TYPE = {
+  ADD_TODO: "addTodo",
+  CHANGE_STATUS: "changeStatus"
+};
+
 export const EventBus = new Vue();
 
 new Vue({

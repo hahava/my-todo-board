@@ -46,9 +46,8 @@
     import BoardItem from "./BoardItem";
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EventBus} from "../main";
+    import {EVENT_TYPE, EventBus, STATUS_TYPE} from "../main";
     import BoardItemContainer from "./BoardItemContainer";
-    import {STATUS_TYPE} from "../main";
     import BoardInputContainer from "./BoardInputContainer";
 
 
@@ -117,10 +116,10 @@
                 lastIndex: 0
             }
         }, created() {
-            EventBus.$on("click", board => {
+            EventBus.$on(EVENT_TYPE.CHANGE_STATUS, board => {
                 this.changeNextStep(board)
             });
-            EventBus.$on("addTodo", item => {
+            EventBus.$on(EVENT_TYPE.ADD_TODO, item => {
                 this.addTodo(item);
             });
         }
