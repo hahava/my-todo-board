@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title float-left">{{currentTitle}}</h5>
+      <h5 class="card-title text-left">{{currentTitle}}</h5>
+      <p class="card-text text-left">{{currentContent}}</p>
       <button class="btn btn-sm float-right"
               v-bind:class="btnStyle"
               v-on:click="changeNextStep">
         {{currentStatus}}
       </button>
-      <p class="card-text float-left">{{currentContent}}</p>
     </div>
   </div>
 </template>

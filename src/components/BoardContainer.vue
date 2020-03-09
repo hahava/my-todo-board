@@ -3,8 +3,16 @@
     <h3>MY Todo Board</h3>
     <br>
     <br>
+
     <div class="row">
-      <TodoContainer type="todo">
+      <div class="col-12">
+        <BoardInputContainer/>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <TodoContainer>
+
         <BoardItem v-for="(todo, x) in todos" :key="x"
                    :id=todo.id
                    :board-status=todo.status
@@ -13,7 +21,7 @@
         />
       </TodoContainer>
 
-      <DoingContainer type="doing">
+      <DoingContainer>
         <BoardItem v-for="(doing, x) in doings" :key="x"
                    :id=doing.id
                    :board-status=doing.status
@@ -22,7 +30,7 @@
         />
       </DoingContainer>
 
-      <DoneContainer type="done">
+      <DoneContainer>
         <BoardItem v-for="(done, x) in dones" :key="x"
                    :id=done.id
                    :board-status=done.status
@@ -30,12 +38,6 @@
                    :board-content=done.content
         />
       </DoneContainer>
-    </div>
-    <hr/>
-    <div class="row">
-      <div class="col-12">
-        <BoardInputContainer/>
-      </div>
     </div>
   </div>
 </template>
