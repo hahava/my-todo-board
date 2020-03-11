@@ -24,4 +24,9 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.container {
+  width: 1120px;
+  max-width: none !important;
+}
 </style>

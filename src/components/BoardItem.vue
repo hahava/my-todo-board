@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title float-left">{{currentTitle}}</h5>
+      <h5 class="card-title text-left">{{currentTitle}}</h5>
+      <p class="card-text text-left">{{currentContent}}</p>
       <button class="btn btn-sm float-right"
               v-bind:class="btnStyle"
               v-on:click="changeNextStep">
         {{currentStatus}}
       </button>
-      <p class="card-text float-left">{{currentContent}}</p>
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EventBus} from "../main";
+    import {EVENT_TYPE, EventBus} from "../main";
     import {STATUS_TYPE} from "../main";
 
     export default {
@@ -29,7 +29,7 @@
             }
         }, methods: {
             changeNextStep() {
-                EventBus.$emit("click", {
+                EventBus.$emit(EVENT_TYPE.CHANGE_STATUS, {
                     currentId: this.id,
                     currentStatus: this.boardStatus,
                     currentTitle: this.boardTitle,

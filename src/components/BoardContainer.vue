@@ -3,8 +3,16 @@
     <h3>MY Todo Board</h3>
     <br>
     <br>
+
     <div class="row">
-      <TodoContainer type="todo">
+      <div class="col-12">
+        <BoardInputContainer/>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <TodoContainer>
+
         <BoardItem v-for="(todo, x) in todos" :key="x"
                    :id=todo.id
                    :board-status=todo.status
@@ -13,7 +21,7 @@
         />
       </TodoContainer>
 
-      <DoingContainer type="doing">
+      <DoingContainer>
         <BoardItem v-for="(doing, x) in doings" :key="x"
                    :id=doing.id
                    :board-status=doing.status
@@ -22,7 +30,7 @@
         />
       </DoingContainer>
 
-      <DoneContainer type="done">
+      <DoneContainer>
         <BoardItem v-for="(done, x) in dones" :key="x"
                    :id=done.id
                    :board-status=done.status
@@ -31,12 +39,6 @@
         />
       </DoneContainer>
     </div>
-    <hr/>
-    <div class="row">
-      <div class="col-12">
-        <BoardInputContainer/>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -44,9 +46,8 @@
     import BoardItem from "./BoardItem";
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EventBus} from "../main";
+    import {EVENT_TYPE, EventBus, STATUS_TYPE} from "../main";
     import BoardItemContainer from "./BoardItemContainer";
-    import {STATUS_TYPE} from "../main";
     import BoardInputContainer from "./BoardInputContainer";
 
 
@@ -115,10 +116,10 @@
                 lastIndex: 0
             }
         }, created() {
-            EventBus.$on("click", board => {
+            EventBus.$on(EVENT_TYPE.CHANGE_STATUS, board => {
                 this.changeNextStep(board)
             });
-            EventBus.$on("addTodo", item => {
+            EventBus.$on(EVENT_TYPE.ADD_TODO, item => {
                 this.addTodo(item);
             });
         }
