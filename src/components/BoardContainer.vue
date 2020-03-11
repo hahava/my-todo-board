@@ -47,7 +47,7 @@
     import BoardItem from "./BoardItem";
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EVENT_TYPE, EventBus, STATUS_TYPE} from "../main";
+    import {EVENT_TYPE, STATUS_TYPE} from "../main";
     import BoardItemContainer from "./BoardItemContainer";
     import BoardInputContainer from "./BoardInputContainer";
 
@@ -77,7 +77,7 @@
                     this.doings.splice(this.doings.findIndex(i => i.id === elem.id), 1);
                     this.dones.push({
                         id: elem.id,
-                        status: STATUS_TYPE.DOING,
+                        status: STATUS_TYPE.DONE,
                         title: elem.title,
                         content: elem.content
                     })
@@ -115,7 +115,7 @@
                 lastIndex: 0
             }
         }, created() {
-            EventBus.$on(EVENT_TYPE.ADD_TODO, item => {
+            this.$on(EVENT_TYPE.ADD_TODO, item => {
                 this.addTodo(item);
             });
         }
