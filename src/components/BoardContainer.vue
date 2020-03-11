@@ -12,26 +12,27 @@
     <hr/>
     <div class="row">
       <TodoContainer>
-
-        <BoardItem v-for="(todo, x) in todos" :key="x"
+        <BoardItem v-for="todo in todos" :key="todo.id"
                    :id=todo.id
                    :board-status=todo.status
                    :board-title=todo.title
                    :board-content=todo.content
+                   @changeStatus="changeNextStep(todo)"
         />
       </TodoContainer>
 
       <DoingContainer>
-        <BoardItem v-for="(doing, x) in doings" :key="x"
+        <BoardItem v-for="doing in doings" :key="doing.id"
                    :id=doing.id
                    :board-status=doing.status
                    :board-title=doing.title
                    :board-content=doing.content
+                   @changeStatus="changeNextStep(doing)"
         />
       </DoingContainer>
 
       <DoneContainer>
-        <BoardItem v-for="(done, x) in dones" :key="x"
+        <BoardItem v-for="done in dones" :key="done.id"
                    :id=done.id
                    :board-status=done.status
                    :board-title=done.title
@@ -63,25 +64,23 @@
             BoardItem, TodoContainer, DoingContainer, DoneContainer
         },
         methods: {
-            changeNextStep(item) {
-
-                if (item.currentStatus === STATUS_TYPE.TODO) {
+            changeNextStep(elem) {
+                if (elem.status === STATUS_TYPE.TODO) {
+                    this.todos.splice(this.todos.findIndex(i => i.id === elem.id), 1);
                     this.doings.push({
-                            id: item.currentId,
-                            status: STATUS_TYPE.DOING,
-                            title: item.currentTitle,
-                            content: item.currentContent
-                        }
-                    );
-                    this.todos = this.todos.filter(elem => elem.id !== item.currentId)
-                } else if (item.currentStatus === STATUS_TYPE.DOING) {
+                        id: elem.id,
+                        status: STATUS_TYPE.DOING,
+                        title: elem.title,
+                        content: elem.content
+                    })
+                } else if (elem.status === STATUS_TYPE.DOING) {
+                    this.doings.splice(this.doings.findIndex(i => i.id === elem.id), 1);
                     this.dones.push({
-                        id: item.currentId,
-                        status: STATUS_TYPE.DONE,
-                        title: item.currentTitle,
-                        content: item.currentContent
-                    });
-                    this.doings = this.doings.filter(elem => elem.id !== item.currentId)
+                        id: elem.id,
+                        status: STATUS_TYPE.DOING,
+                        title: elem.title,
+                        content: elem.content
+                    })
                 }
             },
             getLastIndex() {
@@ -99,26 +98,23 @@
         data() {
             return {
                 todos: [
-                    {id: '1', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'},
-                    {id: '2', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'},
-                    {id: '3', status: 'TODO', title: 'hello TODO title', content: 'hello todo board'}
+                    {id: '1', status: 'TODO', title: 'hello TODO 1', content: 'hello todo board'},
+                    {id: '2', status: 'TODO', title: 'hello TODO 2', content: 'hello todo board'},
+                    {id: '3', status: 'TODO', title: 'hello TODO 3', content: 'hello todo board'}
                 ],
                 doings: [
-                    {id: '4', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
-                    {id: '5', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'},
-                    {id: '6', status: 'DOING', title: 'hello DOING title', content: 'hello DOING board'}
+                    {id: '4', status: 'DOING', title: 'hello DOING 4', content: 'hello DOING board'},
+                    {id: '5', status: 'DOING', title: 'hello DOING 5', content: 'hello DOING board'},
+                    {id: '6', status: 'DOING', title: 'hello DOING 6', content: 'hello DOING board'}
                 ],
                 dones: [
-                    {id: '7', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
-                    {id: '8', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
-                    {id: '9', status: 'DONE', title: 'hello DONE title', content: 'hello DONE board'},
+                    {id: '7', status: 'DONE', title: 'hello DONE 7', content: 'hello DONE board'},
+                    {id: '8', status: 'DONE', title: 'hello DONE 8', content: 'hello DONE board'},
+                    {id: '9', status: 'DONE', title: 'hello DONE 9', content: 'hello DONE board'},
                 ],
                 lastIndex: 0
             }
         }, created() {
-            EventBus.$on(EVENT_TYPE.CHANGE_STATUS, board => {
-                this.changeNextStep(board)
-            });
             EventBus.$on(EVENT_TYPE.ADD_TODO, item => {
                 this.addTodo(item);
             });

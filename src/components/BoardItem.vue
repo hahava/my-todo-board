@@ -15,7 +15,7 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EVENT_TYPE, EventBus} from "../main";
+    import {EVENT_TYPE} from "../main";
     import {STATUS_TYPE} from "../main";
 
     export default {
@@ -29,12 +29,7 @@
             }
         }, methods: {
             changeNextStep() {
-                EventBus.$emit(EVENT_TYPE.CHANGE_STATUS, {
-                    currentId: this.id,
-                    currentStatus: this.boardStatus,
-                    currentTitle: this.boardTitle,
-                    currentContent: this.boardContent
-                });
+                this.$emit(EVENT_TYPE.CHANGE_STATUS, {});
             }
         }, computed: {
             btnStyle() {
