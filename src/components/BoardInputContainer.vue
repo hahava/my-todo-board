@@ -15,8 +15,6 @@
 </template>
 
 <script>
-    import {EventBus} from "../main";
-
     export default {
         name: "BoardInputContainer",
         data() {
@@ -26,7 +24,7 @@
             }
         }, methods: {
             addTodo() {
-                EventBus.$emit("addTodo", {
+                this.$parent.$emit("addTodo", {
                     title: this.title,
                     content: this.content
                 });
