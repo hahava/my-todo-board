@@ -12,30 +12,15 @@
     <hr/>
     <div class="row">
       <TodoContainer>
-        <BoardItem v-for="todo in todos" :key="todo.id"
-                   :id=todo.id
-                   :board-status=todo.status
-                   :board-title=todo.title
-                   :board-content=todo.content
-        />
+        <BoardItem v-for="todo in todos" :key="todo.id" :item="todo"/>
       </TodoContainer>
 
       <DoingContainer>
-        <BoardItem v-for="doing in doings" :key="doing.id"
-                   :id=doing.id
-                   :board-status=doing.status
-                   :board-title=doing.title
-                   :board-content=doing.content
-        />
+        <BoardItem v-for="doing in doings" :key="doing.id" :item="doing"/>
       </DoingContainer>
 
       <DoneContainer>
-        <BoardItem v-for="done in dones" :key="done.id"
-                   :id=done.id
-                   :board-status=done.status
-                   :board-title=done.title
-                   :board-content=done.content
-        />
+        <BoardItem v-for="done in dones" :key="done.id" :item="done"/>
       </DoneContainer>
     </div>
   </div>
@@ -65,20 +50,15 @@
             changeNextStep(elem) {
                 if (elem.status === STATUS_TYPE.TODO) {
                     this.todos.splice(this.todos.findIndex(i => i.id === elem.id), 1);
-                    this.doings.push({
-                        id: elem.id,
-                        status: STATUS_TYPE.DOING,
-                        title: elem.title,
-                        content: elem.content
-                    })
-                } else if (elem.status === STATUS_TYPE.DOING) {
+                    elem.status = STATUS_TYPE.DOING;
+                    this.doings.push(elem)
+                    return;
+                }
+                if (elem.status === STATUS_TYPE.DOING) {
                     this.doings.splice(this.doings.findIndex(i => i.id === elem.id), 1);
-                    this.dones.push({
-                        id: elem.id,
-                        status: STATUS_TYPE.DONE,
-                        title: elem.title,
-                        content: elem.content
-                    })
+                    elem.status = STATUS_TYPE.DONE;
+                    this.dones.push(elem)
+                    return;
                 }
             },
             getLastIndex() {

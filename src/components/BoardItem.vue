@@ -1,12 +1,12 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title text-left">{{boardTitle}}</h5>
-      <p class="card-text text-left">{{boardContent}}</p>
+      <h5 class="card-title text-left">{{item.title}}</h5>
+      <p class="card-text text-left">{{item.content}}</p>
       <button class="btn btn-sm float-right"
               v-bind:class="btnStyle"
               v-on:click="changeNextStep">
-        {{boardStatus}}
+        {{item.status}}
       </button>
     </div>
   </div>
@@ -20,26 +20,21 @@
 
     export default {
         name: "BoardItem",
-        props: ["id", "boardTitle", "boardContent", "boardStatus"],
+        props: ["item"],
         methods: {
             changeNextStep() {
-                EventBus.$emit(EVENT_TYPE.CHANGE_STATUS, {
-                    "id": this.id,
-                    "status": this.boardStatus,
-                    "content": this.boardContent,
-                    title: this.boardTitle
-                });
+                EventBus.$emit(EVENT_TYPE.CHANGE_STATUS, this.item);
             }
         },
         computed: {
             btnStyle() {
-                if (this.boardStatus === STATUS_TYPE.TODO) {
+                if (this.item.status === STATUS_TYPE.TODO) {
                     return "btn-secondary"
-                } else if (this.boardStatus === STATUS_TYPE.DOING) {
-                    return "btn-primary"
-                } else {
-                    return "btn-success disabled"
                 }
+                if (this.item.status === STATUS_TYPE.DOING) {
+                    return "btn-primary"
+                }
+                return "btn-success disabled"
             }
         }
     }
