@@ -17,7 +17,6 @@
                    :board-status=todo.status
                    :board-title=todo.title
                    :board-content=todo.content
-                   @changeStatus="changeNextStep(todo)"
         />
       </TodoContainer>
 
@@ -27,7 +26,6 @@
                    :board-status=doing.status
                    :board-title=doing.title
                    :board-content=doing.content
-                   @changeStatus="changeNextStep(doing)"
         />
       </DoingContainer>
 
@@ -47,7 +45,7 @@
     import BoardItem from "./BoardItem";
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EVENT_TYPE, STATUS_TYPE} from "../main";
+    import {EVENT_TYPE, EventBus, STATUS_TYPE} from "../main";
     import BoardItemContainer from "./BoardItemContainer";
     import BoardInputContainer from "./BoardInputContainer";
 
@@ -118,6 +116,9 @@
             this.$on(EVENT_TYPE.ADD_TODO, item => {
                 this.addTodo(item);
             });
+            EventBus.$on(EVENT_TYPE.CHANGE_STATUS, item => {
+                this.changeNextStep(item);
+            })
         }
     }
 

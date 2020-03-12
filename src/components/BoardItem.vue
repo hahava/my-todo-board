@@ -15,7 +15,7 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import {EVENT_TYPE} from "../main";
+    import {EVENT_TYPE, EventBus} from "../main";
     import {STATUS_TYPE} from "../main";
 
     export default {
@@ -23,7 +23,12 @@
         props: ["id", "boardTitle", "boardContent", "boardStatus"],
         methods: {
             changeNextStep() {
-                this.$emit(EVENT_TYPE.CHANGE_STATUS);
+                EventBus.$emit(EVENT_TYPE.CHANGE_STATUS, {
+                    "id": this.id,
+                    "status": this.boardStatus,
+                    "content": this.boardContent,
+                    title: this.boardTitle
+                });
             }
         },
         computed: {
