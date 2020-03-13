@@ -1,9 +1,6 @@
 <template>
   <div class="container">
     <h3>MY Todo Board</h3>
-    <br>
-    <br>
-
     <div class="row">
       <div class="col-12">
         <BoardInputContainer/>
