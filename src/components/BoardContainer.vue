@@ -8,16 +8,23 @@
     </div>
     <hr/>
     <div class="row">
+
       <TodoContainer>
-        <BoardItem v-for="todo in todos" :key="todo.id" :item="todo"/>
+        <transition-group name="list">
+          <BoardItem v-for="todo in todos" :key="todo.id" :item="todo"/>
+        </transition-group>
       </TodoContainer>
 
       <DoingContainer>
-        <BoardItem v-for="doing in doings" :key="doing.id" :item="doing"/>
+        <transition-group name="list">
+          <BoardItem v-for="doing in doings" :key="doing.id" :item="doing"/>
+        </transition-group>
       </DoingContainer>
 
       <DoneContainer>
-        <BoardItem v-for="done in dones" :key="done.id" :item="done"/>
+        <transition-group name="list">
+          <BoardItem v-for="done in dones" :key="done.id" :item="done"/>
+        </transition-group>
       </DoneContainer>
     </div>
   </div>
@@ -102,5 +109,16 @@
 </script>
 
 <style scoped>
+  .list-enter-active {
+    transition: all 1.2s
+  }
 
+  .list-leave-active {
+    transition: all 0.5s;
+    opacity: 0;
+  }
+
+  .list-enter {
+    opacity: 0;
+  }
 </style>
