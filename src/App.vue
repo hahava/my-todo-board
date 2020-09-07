@@ -4,14 +4,17 @@
   </div>
 </template>
 
-<script>
-import BoardContainer  from "./components/BoardContainer"
+<script lang="ts">
+import {Component, Vue} from 'vue-property-decorator';
+import BoardContainer from "@/components/BoardContainer.vue";
 
-export default {
-  name: 'App',
+@Component({
   components: {
-      BoardContainer
-  }
+    BoardContainer
+  },
+})
+
+export default class App extends Vue {
 }
 </script>
 
