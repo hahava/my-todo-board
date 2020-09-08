@@ -35,7 +35,7 @@
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
     import {EVENT_TYPE, EventBus, STATUS_TYPE} from "../main";
-    import BoardItemContainer from "./BoardItemContainer";
+    import BoardItemContainer from "@/components/BoardItemContainer";
     import BoardInputContainer from "@/components/BoardInputContainer";
 
 
