@@ -4,12 +4,10 @@
   </div>
 </template>
 
-<script>
-    export default {
-        name: "BoardItemContainer",
-    }
+<script lang="ts">
+import {Component, Vue} from 'vue-property-decorator'
+
+@Component
+export default class BoardItemContainer extends Vue {
+}
 </script>
-
-<style scoped>
-
-</style>

@@ -10,7 +10,7 @@
                v-model="title"
                :maxlength=maxTitleLength>
         <div class="input-group-prepend">
-          <div class="input-group-text"> {{title.length}}/{{maxTitleLength}}</div>
+          <div class="input-group-text"> {{ title.length }}/{{ maxTitleLength }}</div>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
                v-model="content"
                :maxLength=maxContentLength>
         <div class="input-group-prepend">
-          <div class="input-group-text"> {{content.length}}/{{maxContentLength}}</div>
+          <div class="input-group-text"> {{ content.length }}/{{ maxContentLength }}</div>
         </div>
       </div>
     </div>
@@ -34,48 +34,47 @@
   </form>
 </template>
 
-<script>
-    export default {
-        name: "BoardInputContainer",
-        data() {
-            return {
-                title: '',
-                maxTitleLength: 10,
-                content: '',
-                maxContentLength: 20,
-                errMsg: ''
-            }
-        }, methods: {
-            addTodo() {
-                if (this.isInputValid()) {
-                    this.$parent.$emit("addTodo", {
-                        title: this.title,
-                        content: this.content
-                    });
-                    this.title = ''
-                    this.content = ''
-                    return;
-                }
-                alert(this.errMsg);
-            },
-            isInputValid() {
+<script lang="ts">
+import {Vue, Component} from 'vue-property-decorator'
 
-                if (this.title.length === 0) {
-                    this.errMsg = "Title must not be null";
-                    return false;
-                }
+@Component
+export default class BoardInputContainer extends Vue {
+  title = ''
+  maxTitleLength = 10
+  content = ''
+  maxContentLength = 20
+  errMsg = ''
 
-                if (this.content.length === 0) {
-                    this.errMsg = "Content must not be null";
-                    return false;
-                }
-
-                return true
-            }
-        }
+  addTodo() {
+    if (this.isInputValid()) {
+      this.$parent.$emit("addTodo", {
+        title: this.title,
+        content: this.content
+      });
+      this.clearTodo()
+      return;
     }
+    alert(this.errMsg);
+  }
+
+  clearTodo() {
+    this.title = ''
+    this.content = ''
+  }
+
+  isInputValid() {
+
+    if (this.title.trim().length === 0) {
+      this.errMsg = "Title must not be null";
+      return false;
+    }
+
+    if (this.content.trim().length === 0) {
+      this.errMsg = "Content must not be null";
+      return false;
+    }
+
+    return true
+  }
+}
 </script>
-
-<style scoped>
-
-</style>
