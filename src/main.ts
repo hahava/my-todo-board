@@ -22,3 +22,10 @@ export const EventBus = new Vue();
 new Vue({
   render: h => h(App),
 }).$mount('#app')
+
+export interface Item {
+  id: string,
+  title: string,
+  status: string,
+  content: string
+}
