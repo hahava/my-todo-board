@@ -21,6 +21,7 @@ export const EventBus = new Vue();
 
 new Vue({
   render: h => h(App),
+  store: store
 }).$mount('#app')
 
 export interface Item {

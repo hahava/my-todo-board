@@ -15,7 +15,8 @@
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {EVENT_TYPE, EventBus, Item, STATUS_TYPE} from "@/main";
+import {EVENT_TYPE, EventBus, STATUS_TYPE} from "@/main";
+import {Item} from '@/store'
 import {Component, Prop, Vue} from "vue-property-decorator";
 
 @Component
