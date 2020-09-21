@@ -30,7 +30,15 @@ const store: StoreOptions<TodoList> = {
     },
     mutations: {
         addTodo(state, item: Item) {
-
-        }
+            state.todoList.push(item);
+        },
+        changeStatus(state, {id, status}: { id: string, status: string }) {
+            state.todoList.find((item: Item) => item.id === id)!.status = status;
+        },
+    },
+    getters: {
+        getTodoListByStatus: state => (status: string) => state.todoList.filter(item => item.status === status),
     }
 }
+
+export default new Vuex.Store(store);
