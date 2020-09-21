@@ -5,7 +5,7 @@
       <p class="card-text text-left">{{ item.content }}</p>
       <button class="btn btn-sm float-right"
               v-bind:class="btnStyle"
-              v-on:click="changeNextStep">
+              v-on:click="changeStatus">
         {{ item.status }}
       </button>
     </div>
@@ -15,7 +15,7 @@
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {EVENT_TYPE, EventBus, STATUS_TYPE} from "@/main";
+import {STATUS_TYPE} from "@/main";
 import {Item} from '@/store'
 import {Component, Prop, Vue} from "vue-property-decorator";
 
@@ -25,8 +25,12 @@ export default class BoardItem extends Vue {
   @Prop()
   item?: Item
 
-  changeNextStep() {
-    EventBus.$emit(EVENT_TYPE.CHANGE_STATUS, this.item);
+  changeStatus() {
+    let nextStatus = 'DOING';
+    if (this.item?.status === 'DOING') {
+      nextStatus = 'DONE';
+    }
+    this.$store.commit('changeStatus', {id: this.item?.id, status: nextStatus});
   }
 
   get btnStyle() {

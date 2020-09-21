@@ -11,7 +11,8 @@ export interface Item {
 }
 
 export interface TodoList {
-    todoList: Item[]
+    todoList: Item[],
+    lastIndex: number
 }
 
 const store: StoreOptions<TodoList> = {
@@ -26,10 +27,11 @@ const store: StoreOptions<TodoList> = {
             {id: '7', status: 'DONE', title: 'hello DONE 7', content: 'hello DONE board'},
             {id: '8', status: 'DONE', title: 'hello DONE 8', content: 'hello DONE board'},
             {id: '9', status: 'DONE', title: 'hello DONE 9', content: 'hello DONE board'}
-        ]
+        ], lastIndex: 0
     },
     mutations: {
         addTodo(state, item: Item) {
+            item.id = state.todoList.length + 1 + ''
             state.todoList.push(item);
         },
         changeStatus(state, {id, status}: { id: string, status: string }) {

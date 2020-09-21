@@ -30,14 +30,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {Component, Vue} from 'vue-property-decorator';
-import {EVENT_TYPE, EventBus, Item, STATUS_TYPE} from "@/main";
+import {Component, Vue, Watch} from 'vue-property-decorator';
 import BoardItem from "@/components/BoardItem.vue";
 import BoardItemContainer from "@/components/BoardItemContainer.vue";
 import BoardInputContainer from "@/components/BoardInputContainer.vue";
+import {Item} from "@/store";
 
 @Component({
   components: {
@@ -50,58 +50,23 @@ import BoardInputContainer from "@/components/BoardInputContainer.vue";
 })
 export default class BoardContainer extends Vue {
 
-  todos = [
-    {id: '1', status: 'TODO', title: 'hello TODO 1', content: 'hello todo board'},
-    {id: '2', status: 'TODO', title: 'hello TODO 2', content: 'hello todo board'},
-    {id: '3', status: 'TODO', title: 'hello TODO 3', content: 'hello todo board'}
-  ]
-  doings = [
-    {id: '4', status: 'DOING', title: 'hello DOING 4', content: 'hello DOING board'},
-    {id: '5', status: 'DOING', title: 'hello DOING 5', content: 'hello DOING board'},
-    {id: '6', status: 'DOING', title: 'hello DOING 6', content: 'hello DOING board'}
-  ]
-  dones = [
-    {id: '7', status: 'DONE', title: 'hello DONE 7', content: 'hello DONE board'},
-    {id: '8', status: 'DONE', title: 'hello DONE 8', content: 'hello DONE board'},
-    {id: '9', status: 'DONE', title: 'hello DONE 9', content: 'hello DONE board'},
-  ]
-  lastIndex = '0'
+  todos: Item[] = []
+  doings: Item[] = []
+  dones: Item[] = []
 
-  changeNextStep(elem) {
-    if (elem.status === STATUS_TYPE.TODO) {
-      this.todos.splice(this.todos.findIndex(i => i.id === elem.id), 1);
-      elem.status = STATUS_TYPE.DOING;
-      this.doings.push(elem)
-      return;
-    }
-    if (elem.status === STATUS_TYPE.DOING) {
-      this.doings.splice(this.doings.findIndex(i => i.id === elem.id), 1);
-      elem.status = STATUS_TYPE.DONE;
-      this.dones.push(elem)
-      return;
-    }
+  initRender() {
+    this.todos = this.$store.getters.getTodoListByStatus('TODO');
+    this.doings = this.$store.getters.getTodoListByStatus('DOING');
+    this.dones = this.$store.getters.getTodoListByStatus('DONE');
   }
 
-  getLastIndex() {
-    return this.todos.length + this.doings.length + this.dones.length + 1 +'';
-  }
-
-  addTodo(item) {
-    this.todos.push({
-      id: this.getLastIndex(),
-      status: STATUS_TYPE.TODO,
-      title: item.title,
-      content: item.content
-    })
+  @Watch('$store.state.todoList', {deep: true})
+  storeUpdate() {
+    this.initRender()
   }
 
   created() {
-    this.$on(EVENT_TYPE.ADD_TODO, item => {
-      this.addTodo(item);
-    });
-    EventBus.$on(EVENT_TYPE.CHANGE_STATUS, item => {
-      this.changeNextStep(item);
-    })
+    this.initRender()
   }
 }
 
