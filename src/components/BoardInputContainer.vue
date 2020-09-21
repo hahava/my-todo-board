@@ -35,7 +35,8 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
+import {Status} from '@/store'
 
 @Component
 export default class BoardInputContainer extends Vue {
@@ -47,10 +48,12 @@ export default class BoardInputContainer extends Vue {
 
   addTodo() {
     if (this.isInputValid()) {
-      this.$parent.$emit("addTodo", {
+      this.$store.commit('addTodo', {
+        id: '',
+        status: Status.todo,
         title: this.title,
         content: this.content
-      });
+      })
       this.clearTodo()
       return;
     }
