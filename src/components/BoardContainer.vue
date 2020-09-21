@@ -37,7 +37,7 @@ import {Component, Vue, Watch} from 'vue-property-decorator';
 import BoardItem from "@/components/BoardItem.vue";
 import BoardItemContainer from "@/components/BoardItemContainer.vue";
 import BoardInputContainer from "@/components/BoardInputContainer.vue";
-import {Item} from "@/store";
+import {Item, Status} from "@/store";
 
 @Component({
   components: {
@@ -55,9 +55,9 @@ export default class BoardContainer extends Vue {
   dones: Item[] = []
 
   initRender() {
-    this.todos = this.$store.getters.getTodoListByStatus('TODO');
-    this.doings = this.$store.getters.getTodoListByStatus('DOING');
-    this.dones = this.$store.getters.getTodoListByStatus('DONE');
+    this.todos = this.$store.getters.getTodoListByStatus(Status.todo);
+    this.doings = this.$store.getters.getTodoListByStatus(Status.doing);
+    this.dones = this.$store.getters.getTodoListByStatus(Status.done);
   }
 
   @Watch('$store.state.todoList', {deep: true})

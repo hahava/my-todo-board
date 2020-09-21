@@ -36,6 +36,7 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator'
+import {Status} from '@/store'
 
 @Component
 export default class BoardInputContainer extends Vue {
@@ -49,7 +50,7 @@ export default class BoardInputContainer extends Vue {
     if (this.isInputValid()) {
       this.$store.commit('addTodo', {
         id: '',
-        status: 'TODO',
+        status: Status.todo,
         title: this.title,
         content: this.content
       })

@@ -15,8 +15,7 @@
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {STATUS_TYPE} from "@/main";
-import {Item} from '@/store'
+import {Item, Status} from '@/store'
 import {Component, Prop, Vue} from "vue-property-decorator";
 
 @Component
@@ -26,18 +25,18 @@ export default class BoardItem extends Vue {
   item?: Item
 
   changeStatus() {
-    let nextStatus = 'DOING';
-    if (this.item?.status === 'DOING') {
-      nextStatus = 'DONE';
+    let nextStatus = Status.doing;
+    if (this.item?.status === Status.doing) {
+      nextStatus = Status.done;
     }
     this.$store.commit('changeStatus', {id: this.item?.id, status: nextStatus});
   }
 
   get btnStyle() {
-    if (this.item?.status === STATUS_TYPE.TODO) {
+    if (this.item?.status === Status.todo) {
       return "btn-secondary"
     }
-    if (this.item?.status === STATUS_TYPE.DOING) {
+    if (this.item?.status === Status.done) {
       return "btn-primary"
     }
     return "btn-success disabled"
