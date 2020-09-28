@@ -6,7 +6,7 @@ import javax.persistence.*
 data class TodoItem(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val id: Long?,
 
         @Column(nullable = false)
         var title: String,
