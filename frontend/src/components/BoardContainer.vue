@@ -4,9 +4,9 @@
     <div class="row">
       <div class="col-12  float-right text-right">
         <span>정렬 방향 : </span>
-        <router-link to="/sort/vertical">세로</router-link>
+        <router-link to="/page/sort/vertical">세로</router-link>
         /
-        <router-link to="/sort/horizontal">가로</router-link>
+        <router-link to="/page/sort/horizontal">가로</router-link>
       </div>
     </div>
     <div class="row">
