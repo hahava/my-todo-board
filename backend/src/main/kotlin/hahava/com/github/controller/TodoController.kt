@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/item")
 class TodoController(private val todoService: TodoService) {
 
+    @GetMapping
+    fun getTodo(): List<TodoItem> {
+        return todoService.getItems()
+    }
+
     @GetMapping("/{todoStatus}")
     fun getTodoItemByStatus(@PathVariable todoStatus: ToDoStatus): List<TodoItem> {
         return todoService.getTodoItemByStatus(todoStatus)
@@ -22,7 +27,8 @@ class TodoController(private val todoService: TodoService) {
     }
 
     @PutMapping
-    fun changeTodoItemStatus(todoItem: TodoItem): ResponseEntity<String> {
+    fun changeTodoItemStatus(@RequestBody todoItem: TodoItem): ResponseEntity<String> {
+        println(todoItem)
         todoService.changeTodoItem(todoItem)
         return ResponseEntity.ok().build()
     }

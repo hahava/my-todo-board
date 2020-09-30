@@ -13,6 +13,10 @@ class TodoService(
         private val entityManager: EntityManager
 ) {
 
+    fun getItems(): List<TodoItem> {
+        return todoRepository.findAll().toList()
+    }
+
     fun getItemById(id: Long): Optional<TodoItem> {
         return todoRepository.findById(id)
     }
@@ -31,7 +35,7 @@ class TodoService(
         oldTodoItem.title = todoItem.title
         oldTodoItem.content = todoItem.content
 
-        entityManager.persist(oldTodoItem)
+        todoRepository.save(oldTodoItem)
     }
 
     fun removeTodoItem(itemId: Long) {

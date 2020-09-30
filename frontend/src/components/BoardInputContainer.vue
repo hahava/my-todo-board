@@ -48,7 +48,7 @@ export default class BoardInputContainer extends Vue {
 
   addTodo() {
     if (this.isInputValid()) {
-      this.$store.commit('addTodo', {
+      this.$store.dispatch('addTodo', {
         id: '',
         status: Status.todo,
         title: this.title,
