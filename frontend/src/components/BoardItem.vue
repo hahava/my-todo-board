@@ -25,11 +25,10 @@ export default class BoardItem extends Vue {
   item?: Item
 
   changeStatus() {
-    let nextStatus = Status.doing;
-    if (this.item?.status === Status.doing) {
-      nextStatus = Status.done;
-    }
-    this.$store.commit('changeStatus', {id: this.item?.id, status: nextStatus});
+    const item = this.$store.getters.getTodoListById(this.item?.id);
+    item.status = (this.item?.status === Status.doing) ? Status.done : Status.doing;
+
+    this.$store.dispatch('changeTodo', item);
   }
 
   get btnStyle() {
