@@ -9,7 +9,7 @@ export default new Router({
     base: process.env.BASE_URL,
     routes: [
         {
-            path: '/sort/:type?',
+            path: '/page/sort/:type?',
             name: 'sorted-view',
             component: BoardListContainer
         }

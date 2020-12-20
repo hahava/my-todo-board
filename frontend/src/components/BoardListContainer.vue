@@ -62,7 +62,7 @@ export default class BoardListContainer extends Vue {
   }
 
   created() {
-    this.initRender()
+    this.$store.dispatch('initData')
   }
 }
 </script>
