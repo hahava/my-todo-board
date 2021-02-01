@@ -1,16 +1,28 @@
 ## project
 
-vue 를 이용한 todo board 작성
+todo list board 작성
 
 ## 실행방법
 
-```bash
-$ npm install
+### local
 
-$ npm run serve 
+```bash
+$ mvn clean install
+
+$ mvn --projects backend spring-boot:run 
 ```
 
-http://localhost:8080/ 접속
+### docker
+
+```bash
+# layer 분리
+$ mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+
+$ docker build -t hahava/my-todo-board
+
+$ docker run -p 8080:8080 my-todo-board
+```
+
 
 
 
